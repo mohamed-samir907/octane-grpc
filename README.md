@@ -1,10 +1,10 @@
-# Very short description of the package
+# Octane gRPC
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mosamirzz/octane-grpc.svg?style=flat-square)](https://packagist.org/packages/mosamirzz/octane-grpc)
 [![Total Downloads](https://img.shields.io/packagist/dt/mosamirzz/octane-grpc.svg?style=flat-square)](https://packagist.org/packages/mosamirzz/octane-grpc)
 ![GitHub Actions](https://github.com/mosamirzz/octane-grpc/actions/workflows/main.yml/badge.svg)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+Add support for gRPC server in laravel octane.
 
 ## Installation
 
@@ -50,9 +50,3 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 ## Laravel Package Boilerplate
 
 This package was generated using the [Laravel Package Boilerplate](https://laravelpackageboilerplate.com).
-
-"illuminate/support": "^8.0"
-
-dev
-"orchestra/testbench": "^6.0",
-"phpunit/phpunit": "^9.0"
