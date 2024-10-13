@@ -16,6 +16,31 @@ composer require mosamirzz/octane-grpc
 
 ## Usage
 
+1. add the following at the end of your octane.php config file.
+```php
+return [
+    // ... 
+
+    /*
+    |--------------------------------------------------------------------------
+    | gRPC Server
+    |--------------------------------------------------------------------------
+    |
+    | The following setting used by the swoole gRPC server.
+    |
+    */
+
+    'grpc' => [
+        'host' => '127.0.0.1',
+        'port' => 50051,
+        'mode' => OpenSwoole\Http\Server::POOL_MODE,
+        'services_path' => base_path('routes/grpc.php'),
+    ],
+];
+
+```
+
+2. run the server
 ```bash
 sail artisan octane:swoole-grpc
 ```
