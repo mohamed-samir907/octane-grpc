@@ -85,7 +85,7 @@ $server->withWorkerContext("app", function () use ($serverState, $bootstrap) {
 $server->addMiddleware(new RequestSandboxMiddleware);
 
 // Register the gRPC service to the server
-$services = require __DIR__ . "/../../../routes/grpc.php";
+$services = require $serverState['octaneConfig']['grpc']['services_path'];
 
 foreach ($services as $name => $instance) {
     $server->register($name, $instance);
