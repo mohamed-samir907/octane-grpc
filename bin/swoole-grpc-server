@@ -1,0 +1,95 @@
+#!/usr/bin/env php
+<?php
+
+use Laravel\Octane\Swoole\ServerStateFile;
+use Laravel\Octane\Swoole\SwooleExtension;
+use Mosamirzz\OctaneGrpc\Handlers\OnServerStart;
+use Mosamirzz\OctaneGrpc\Handlers\OnWorkerStart;
+use Mosamirzz\OctaneGrpc\Handlers\RequestSandboxMiddleware;
+
+ini_set('display_errors', 'stderr');
+
+$bootstrap = fn($serverState) => require __DIR__ . '/bootstrap.php';
+
+/*
+|--------------------------------------------------------------------------
+| Create The Swoole Server
+|--------------------------------------------------------------------------
+|
+| First, we will load the server state file from disk. This file contains
+| various information we need to boot Swoole such as the configuration
+| and application name. We can use this data to start up our server.
+|
+*/
+
+$serverState = json_decode(file_get_contents(
+    $serverStateFile = $_SERVER['argv'][1]
+), true)['state'];
+
+$basePath = $bootstrap($serverState);
+
+$server = require __DIR__ . '/createSwooleGrpcServer.php';
+
+/*
+|--------------------------------------------------------------------------
+| Handle Server & Manager Start
+|--------------------------------------------------------------------------
+|
+| The following callbacks manage the master process and manager process
+| start events. These handlers primarily are responsible for writing
+| the process ID to the server state file so we can remember them.
+|
+*/
+
+$server->on('start', fn() => (new OnServerStart(
+    new ServerStateFile($serverStateFile),
+    new SwooleExtension,
+    $serverState['appName'],
+    $serverState['octaneConfig']['max_execution_time'] ?? 0
+))($this));
+
+/*
+|--------------------------------------------------------------------------
+| Handle Worker Start
+|--------------------------------------------------------------------------
+|
+| Swoole will start multiple worker processes and the following callback
+| will handle their state events. When a worker starts we will create
+| a new Octane worker and inform it to start handling our requests.
+|
+*/
+
+$server->withWorkerContext("app", function () use ($serverState, $bootstrap) {
+    $handler = (fn($basePath) => new OnWorkerStart(
+        new SwooleExtension,
+        $basePath,
+        $serverState
+    ))($bootstrap($serverState));
+
+    $app = $handler($this);
+
+    return $app;
+});
+
+/*
+|--------------------------------------------------------------------------
+| Handle Incoming Requests
+|--------------------------------------------------------------------------
+|
+| The following callback will handle all incoming requests plus send them
+| the worker. The worker will send the request through the application
+| and ask the client to send the response back to the Swoole server.
+|
+*/
+
+$server->addMiddleware(new RequestSandboxMiddleware);
+
+// Register the gRPC service to the server
+$services = require __DIR__ . "/../../../routes/grpc.php";
+
+foreach ($services as $name => $instance) {
+    $server->register($name, $instance);
+}
+
+// Start the gRPC server
+$server->start();
