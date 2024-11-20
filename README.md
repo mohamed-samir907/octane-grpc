@@ -132,16 +132,16 @@ you can install the release you want from this page: [OpenSwoole plugin releases
 
 ```bash
 # download the zip file
-curl -LO https://github.com/openswoole/protoc-gen-openswoole-grpc/releases/download/0.1.1/protoc-gen-openswoole-grpc-0.1.1-darwin-amd64.tar.gz
+curl -LO https://github.com/openswoole/protoc-gen-openswoole-grpc/releases/download/0.1.1/protoc-gen-openswoole-grpc-0.1.1-linux-amd64.tar.gz
 
 # extract it
-mkdir openswoole && tar -xvzf protoc-gen-openswoole-grpc-0.1.1-darwin-amd64.tar.gz -C openswoole
+mkdir openswoole && tar -xvzf protoc-gen-openswoole-grpc-0.1.1-linux-amd64.tar.gz -C openswoole
 
 # move the binary to the /usr/bin directory to be used from anywhere
 sudo mv openswoole/protoc-gen-openswoole-grpc /usr/bin
 
 # remove unwanted files
-rm protoc-gen-openswoole-grpc-0.1.1-darwin-amd64.tar.gz
+rm protoc-gen-openswoole-grpc-0.1.1-linux-amd64.tar.gz
 rm -r openswoole
 ```
 
@@ -164,6 +164,12 @@ make protoc grpc_php_plugin
 sudo mv grpc_php_plugin /usr/bin/protoc-gen-php-grpc
 
 # you can remove unwanted directories like above
+```
+
+5. install protobuf compiler
+
+```bash
+sudo apt install protobuf-compiler
 ```
 
 ## server example
@@ -341,8 +347,8 @@ If you discover any security related issues, please email gm.mohamedsamir@gmail.
 
 ## Credits
 
--   [Mohamed Samir](https://github.com/mosamirzz)
--   [All Contributors](../../contributors)
+- [Mohamed Samir](https://github.com/mosamirzz)
+- [All Contributors](../../contributors)
 
 ## License
 
