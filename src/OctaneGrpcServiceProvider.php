@@ -5,7 +5,7 @@ namespace Mosamirzz\OctaneGrpc;
 use Laravel\Octane\Exec;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Octane\Swoole\SignalDispatcher;
-use Laravel\Octane\Swoole\ServerProcessInspector;
+use Mosamirzz\OctaneGrpc\ServerProcessInspector;
 
 class OctaneGrpcServiceProvider extends ServiceProvider
 {

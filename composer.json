@@ -8,6 +8,7 @@
     "homepage": "https://github.com/mosamirzz/octane-grpc",
     "license": "MIT",
     "type": "library",
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "Mohamed Samir",
