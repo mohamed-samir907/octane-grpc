@@ -28,7 +28,7 @@ class OnServerStart
     {
         $ref = new ReflectionClass($server);
         /**
-         * @var \OpenSwoole\Http\Server $server
+         * @var \Swoole\Http\Server $server
          */
         $server = $ref->getProperty('server')->getValue($server);
 

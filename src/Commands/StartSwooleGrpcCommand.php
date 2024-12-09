@@ -8,7 +8,7 @@ use Laravel\Octane\Commands\Concerns;
 use Symfony\Component\Process\Process;
 use Mosamirzz\OctaneGrpc\ServerStateFile;
 use Laravel\Octane\Swoole\SwooleExtension;
-use Laravel\Octane\Swoole\ServerProcessInspector;
+use Mosamirzz\OctaneGrpc\ServerProcessInspector;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Console\Command\SignalableCommandInterface;

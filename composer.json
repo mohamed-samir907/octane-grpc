@@ -9,6 +9,7 @@
     "license": "MIT",
     "type": "library",
     "minimum-stability": "stable",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "Mohamed Samir",
@@ -19,7 +20,7 @@
     "require": {
         "php": "^8.1",
         "laravel/octane": "^2.5",
-        "openswoole/grpc": "^22.1"
+        "mosamirzz/swoole-grpc": "^0.1.0"
     },
     "bin": [
         "bin/swoole-grpc-server"
